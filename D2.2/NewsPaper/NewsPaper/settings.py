@@ -123,3 +123,18 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+from django.db import models
+
+class Order(models.Model):  # наследуемся от класса Model
+    pass
+
+class Product(models.Model):
+    pass
+
+class Staff(models.Model):
+    pass
+
+class ProductOrder(models.Model):
+    pass
+
