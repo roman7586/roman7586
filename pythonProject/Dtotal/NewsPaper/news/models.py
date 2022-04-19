@@ -19,8 +19,9 @@ class Author(models.Model):
         self.ratingAuthor = pRat * 3 + cRat
         self.save()
 
+
 class Category(models.Model):
-    name=models.CharField(max_length=64, unique=True)
+    name = models.CharField(max_length=64, unique=True)
 
 
 class Post(models.Model):
