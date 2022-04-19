@@ -8,7 +8,7 @@ class Author(models.Model):
     ratingAuthor = models.SmallIntegerField(default=0)
 
     def update_rating(self):
-        postRat = self.post_set.aggregatite(postRating=Sum('rating'))
+        postRat = self.post_set.aggregate(postRating=Sum('rating'))
         pRat = 0
         pRat += postRat.get('postRating')
 
