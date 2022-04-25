@@ -24,6 +24,7 @@ class Category(models.Model):
     name = models.CharField(max_length=64, unique=True)
 
 
+
 class Post(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
 
