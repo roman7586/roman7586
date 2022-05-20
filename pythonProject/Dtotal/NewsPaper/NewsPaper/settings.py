@@ -93,7 +93,9 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-LOGIN_URL = '/accounts/login/'
+LOGIN_URL = '/accounts/login/' # Авторизация через allauth
+LOGIN_REDIRECT_URL = '/news/indexx/' # перенаправление на страницу для авторизованного пользователя
+ACCOUNT_LOGOUT_REDIRECT_URL ="/accounts/login" #перенаправление на страницу авторизации после выхода их профиля
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
