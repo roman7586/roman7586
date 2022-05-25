@@ -6,6 +6,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import Group
+from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
@@ -62,6 +63,22 @@ class PostCreate(PermissionRequiredMixin, CreateView):
     template_name = 'post_edit.html'
     permission_required = ('news.add_post',)
 
+# Для задания 6.2
+    def post(self, request, *args, **kwargs):
+     #   post = Post(
+     #       author=request.POST['author'],
+     #       title=request.POST['title'],
+     #       text=request.POST['text'],
+     #   )
+     #   post.save()
+     #    отправляем письмо
+     #   send_mail(subject=f'Вышел новый пост с заголовком {post.title} ',
+     #      message=post.text,
+     #      from_email='hiromant86@yandex.ru',
+     #       здесь указываете почту, с которой будете отправлять
+     #      recipient_list=['hiromant86@mail.ru']  # здесь список получателей.
+     #   )
+        return redirect('news') # надо разобраться
 
 class PostUpdate(PermissionRequiredMixin, UpdateView):
     form_class = PostForm
