@@ -17,6 +17,7 @@ post
                <td>Описание</td>
                <td>Дата написания</td>
                <td>Автор</td>
+               <td>Подписка на категорию</td>
 
            </tr>
 
@@ -34,6 +35,7 @@ post
                <td>{{ post.text|censor}}</td>
                <td>{{ post.dateCreation|date:'d M Y' }}</td>
                <td>{{ post.author.authorUser }}</td>
+               <td><button> <a href="upgrade/">Подписаться</a> </button></td>
 
            </tr>
 
