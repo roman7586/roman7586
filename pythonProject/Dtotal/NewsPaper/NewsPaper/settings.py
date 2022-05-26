@@ -67,6 +67,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'NewsPaper.urls'
 
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -99,9 +101,9 @@ ACCOUNT_LOGOUT_REDIRECT_URL ="/accounts/login" #перенаправление �
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USERNAME_REQUIRED = True # было до 6.2 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  #было до 6.2 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 ACCOUNT_FORMS = {'signup': 'news.forms.BasicSignupForm'}
 
@@ -166,3 +168,6 @@ EMAIL_PORT = 465  # порт smtp сервера тоже одинаковый
 EMAIL_HOST_USER = 'hiromant86'  # ваше имя пользователя, например, если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
 EMAIL_HOST_PASSWORD = '2xcanonx2'  # пароль от почты
 EMAIL_USE_SSL = True  # Яндекс использует ssl, подробнее о том, что это, почитайте в дополнительных источниках, но включать его здесь обязательно
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER + '@yandex.ru' #можно указать полностью адрес 'hiromant86@yandex.ru' . Для 6.2
+#ACCOUNT_CONFIRM_EMAIL_ON_GET = True - позволит избежать дополнительных действий и активирует аккаунт сразу, как только мы перейдем по ссылке
+#ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS  - количество дней, в течение которых будет доступна ссылка на подтверждение регистрации

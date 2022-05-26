@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email signup</title>
+</head>
+<body>
+    {% load account %} <!-- Загружаем тег который позволит получить нам ссылку на подтверждение -->
+    <h1>Thank you for registering {{ user.username }}!</h1>
+    <h3>To activate your account please follow the link <a href="{{ activate_url }}">the link</a>. </h3>
+    <h3>If you did not register on the news portal and this letter was received by mistake, just ignore this letter.</h3>
+     <!-- Вставляем ссылку на активацию -->
+</body>
+</html>

@@ -64,21 +64,21 @@ class PostCreate(PermissionRequiredMixin, CreateView):
     permission_required = ('news.add_post',)
 
 # Для задания 6.2
-    def post(self, request, *args, **kwargs):
-     #   post = Post(
-     #       author=request.POST['author'],
-     #       title=request.POST['title'],
-     #       text=request.POST['text'],
-     #   )
-     #   post.save()
-     #    отправляем письмо
-     #   send_mail(subject=f'Вышел новый пост с заголовком {post.title} ',
-     #      message=post.text,
-     #      from_email='hiromant86@yandex.ru',
-     #       здесь указываете почту, с которой будете отправлять
-     #      recipient_list=['hiromant86@mail.ru']  # здесь список получателей.
-     #   )
-        return redirect('news') # надо разобраться
+    #def post(self, request, *args, **kwargs):
+    #    post = Post(
+    #        author=request.POST['author'],
+    #        title=request.POST['title'],
+    #        text=request.POST['text'],
+    #    )
+    #    post.save()
+    # #    отправляем письмо
+    #    send_mail(subject=f'Вышел новый пост с заголовком {post.title} ',
+    #       message=post.text,
+    #       from_email='hiromant86@yandex.ru',
+    # #       здесь указываете почту, с которой будете отправлять
+    #       recipient_list=['hiromant86@mail.ru']  # здесь список получателей.
+    #    )
+    #    return redirect('news') # надо разобраться
 
 class PostUpdate(PermissionRequiredMixin, UpdateView):
     form_class = PostForm
