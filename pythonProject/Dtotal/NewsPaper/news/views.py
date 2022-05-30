@@ -13,7 +13,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 from .filters import PostFilter
 from .forms import PostForm
-from .models import Post
+from .models import Post, Category
 
 
 class PostsList(ListView):
@@ -27,7 +27,7 @@ class PostsList(ListView):
     # Это имя списка, в котором будут лежать все объекты.
     # Его надо указать, чтобы обратиться к списку объектов в html-шаблоне.
     context_object_name = 'posts'
-    paginate_by = 10
+    paginate_by = 20
 
     def get_queryset(self):
         # Получаем обычный запрос
@@ -111,13 +111,21 @@ def upgrade_me(request):
         authors_group.user_set.add(user)
     return redirect('/')
 
-@login_required                                                          # Для задания 6.5
-def subscribe(request):                                                  # Для задания 6.5
+class CategoryList(ListView):
+    model = Category
+    ordering = 'name'
+    template_name = 'category.html'
+    context_object_name = 'category'
+#@login_required                                                          # Для задания 6.5
+def addsubscribe(request):                                                  # Для задания 6.5
     user = request.user                                                  # Для задания 6.5
-    authors_group = Group.objects.get(name='authors')                    # Для задания 6.5
-    if not request.user.groups.filter(name='authors').exists():          # Для задания 6.5
-        authors_group.user_set.add(user)                                 # Для задания 6.5
-    return redirect('/')                                                 # Для задания 6.5
+    category = request.category
+    category.subscribe.add(user)
+    return redirect('news/')
+#    CategoryUser = Category.objects.get(name='authors')                    # Для задания 6.5
+#    if not request.user.groups.filter(name='authors').exists():          # Для задания 6.5
+#        authors_group.user_set.add(user)                                 # Для задания 6.5
+#    return redirect('/')                                                 # Для задания 6.5
 
 
 
