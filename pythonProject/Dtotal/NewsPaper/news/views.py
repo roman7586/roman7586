@@ -116,12 +116,15 @@ class CategoryList(ListView):
     ordering = 'name'
     template_name = 'category.html'
     context_object_name = 'category'
-#@login_required                                                          # Для задания 6.5
-def addsubscribe(request):                                                  # Для задания 6.5
+
+
+@login_required                                                          # Для задания 6.5
+def add_subscribe(request, id):                                                  # Для задания 6.5
     user = request.user                                                  # Для задания 6.5
-    category = request.category
-    category.subscribe.add(user)
-    return redirect('news/')
+    category = Category.objects.get(pk=id)                              # Для задания 6.5
+    category.subscribers.add(user)                                        # Для задания 6.5
+    category.save()                                                       # Для задания 6.5
+    return redirect('/news/sub/')                                              # Для задания 6.5
 #    CategoryUser = Category.objects.get(name='authors')                    # Для задания 6.5
 #    if not request.user.groups.filter(name='authors').exists():          # Для задания 6.5
 #        authors_group.user_set.add(user)                                 # Для задания 6.5
