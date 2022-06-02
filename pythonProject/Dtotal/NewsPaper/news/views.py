@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import Group
 from django.core.mail import send_mail
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
@@ -27,7 +29,7 @@ class PostsList(ListView):
     # Это имя списка, в котором будут лежать все объекты.
     # Его надо указать, чтобы обратиться к списку объектов в html-шаблоне.
     context_object_name = 'posts'
-    paginate_by = 20
+    paginate_by = 10
 
     def get_queryset(self):
         # Получаем обычный запрос
@@ -130,5 +132,25 @@ def add_subscribe(request, id):                                                 
 #        authors_group.user_set.add(user)                                 # Для задания 6.5
 #    return redirect('/')                                                 # Для задания 6.5
 
-
-
+@receiver(post_save, sender=Category)                                                             # Для задания 6.5
+def notify_managers_appointment(sender, instance, created, **kwargs):                             # Для задания 6.5
+    id_new = instance.id                                                                          # Для задания 6.5
+    id_new_cat = instance.newCategory_set.all()                                                   # Для задания 6.5
+    if created == "new_add":                                                                      # Для задания 6.5
+        #print('свежие новости')                                                                  # Для задания 6.5
+        #print(id_new, id_new_cat)                                                                # Для задания 6.5
+        #print(id_new_cat.all().values('category'))                                               # Для задания 6.5
+        for id_cat in id_new_cat.all().values('category'):                                        # Для задания 6.5
+            id_cat                                                                                # Для задания 6.5
+        mail_adress=Category.objects.get(id=id_cat['category'])                                   # Для задания 6.5
+        #print(mail_adress.subscribers.all())                                                     # Для задания 6.5
+        if mail_adress.subscribers.all():                                                         # Для задания 6.5
+            #print('Подписки есть')                                                               # Для задания 6.5
+            for mail_adress in mail_adress.subscribers.all():                                     # Для задания 6.5
+                                                                                                  # Для задания 6.5
+                send_mail(                                                                        # Для задания 6.5
+                    subject=f'Свежие новости в категории  {mail_adress}',                         # Для задания 6.5
+                    message=f'Пройдите по ссылке  http://127.0.0.1:8000/news/{id_new}',           # Для задания 6.5
+                    from_email='hiromant86@yandex.ru',                                            # Для задания 6.5
+                    recipient_list=[mail_adress],                                                 # Для задания 6.5
+                )                                                                                 # Для задания 6.5
