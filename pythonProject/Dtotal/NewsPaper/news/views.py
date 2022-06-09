@@ -6,10 +6,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import Group
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.db.models.signals import post_save, m2m_changed
 from django.dispatch import receiver
 from django.shortcuts import redirect
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 
@@ -147,3 +148,19 @@ def notify(sender, instance, action, **kwargs):
                    #здесь указываете почту, с которой будете отправлять
                    recipient_list=[user.email]                                          #recipient_list=set(mass) , если через получателей в копии
                       )
+
+            #письмо в формате html
+            #subject, from_email, to = 'hello', 'hiromant86@yandex.ru', [user.email]
+            #text_content = 'This is an important message.'
+            #html_content = '<p>This is an <strong>important</strong> message.</p>'
+            html_content = render_to_string(
+                'news_created.html',
+            )
+            msg = EmailMultiAlternatives(
+                subject=f'Вышел новый пост с заголовком {instance.title}',
+                body=instance.text,
+                from_email='hiromant86@yandex.ru',
+                to=[user.email],
+            )
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
