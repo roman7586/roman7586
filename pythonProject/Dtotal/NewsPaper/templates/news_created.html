@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PosT</title>
 </head>
 <body>
-    <h2>{{ news.client_name }} Спасибо за запись!</h2>
-    <p> Вы записаны на {{ news.date|date:"d-M-Y" }} по вопросу: {{ news.message|truncatechars:50 }} </p>
+    <h2>Добрый день. Новая статья в твоём любимом разделе!</h2>
+    <p> Вышел новый пост на категорию которого вы подписаны!</p>
+    <p> выдержка: "{{ Post.text|truncatechars:50 }}" </p>
+    <p> С полным текстом поста вы можете ознакомиться перейдя по <a href=http://127.0.0.1:8000/news/{{ Post.id }}> ссылке</a></p>
+
 </body>
 </html>

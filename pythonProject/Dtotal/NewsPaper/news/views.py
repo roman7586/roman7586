@@ -142,12 +142,12 @@ def notify(sender, instance, action, **kwargs):
                 mass.append(j)                                                          #mass.append(j.email) если через получателей в копии
 
         for user in set(mass):                                                          #убирается, если через получателей в копии
-            send_mail(subject=f'Вышел новый пост с заголовком {instance.title} ',
-                   message=instance.text,
-                   from_email='hiromant86@yandex.ru',
-                   #здесь указываете почту, с которой будете отправлять
-                   recipient_list=[user.email]                                          #recipient_list=set(mass) , если через получателей в копии
-                      )
+            #send_mail(subject=f'Вышел новый пост с заголовком {instance.title} ',
+            #       message=instance.text,
+            #       from_email='hiromant86@yandex.ru',
+            #       #здесь указываете почту, с которой будете отправлять
+            #       recipient_list=[user.email]                                          #recipient_list=set(mass) , если через получателей в копии
+            #          )
 
             #письмо в формате html
             #subject, from_email, to = 'hello', 'hiromant86@yandex.ru', [user.email]
@@ -155,10 +155,14 @@ def notify(sender, instance, action, **kwargs):
             #html_content = '<p>This is an <strong>important</strong> message.</p>'
             html_content = render_to_string(
                 'news_created.html',
+                {
+                    'Post': instance,
+                    'Category':Category,
+                }
             )
             msg = EmailMultiAlternatives(
                 subject=f'Вышел новый пост с заголовком {instance.title}',
-                body=instance.text,
+                #body=instance.text,
                 from_email='hiromant86@yandex.ru',
                 to=[user.email],
             )
