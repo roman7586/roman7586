@@ -174,8 +174,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER + '@yandex.ru' #можно указать �
 #ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS  - количество дней, в течение которых будет доступна ссылка на подтверждение регистрации
 
 
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_BROKER_URL = 'redis://default:T6awm2b9kCjXPDKe3mM4Qr9zKuU25Txq@redis-17198.c9.us-east-1-4.ec2.cloud.redislabs.com:17198'
+CELERY_RESULT_BACKEND = 'redis://redis-17198.c9.us-east-1-4.ec2.cloud.redislabs.com:17198'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'

@@ -16,7 +16,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 from .filters import PostFilter
 from .forms import PostForm
-from .models import Post, Category
+from .models import Post, Category, Author
 
 
 class PostsList(ListView):
