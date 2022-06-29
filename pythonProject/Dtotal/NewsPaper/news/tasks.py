@@ -6,7 +6,6 @@ from django.template.loader import render_to_string
 
 from .models import Post, Category
 
-
 @shared_task
 def weekly_mailing_list():
     for category in Category.objects.all():
