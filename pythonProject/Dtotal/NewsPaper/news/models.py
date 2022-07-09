@@ -27,11 +27,10 @@ class Author(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=64, unique=True)
-    subscribers = models.ManyToManyField(User, blank=True, related_name='subscribers')  #Для задания 6.5
+    subscribers = models.ManyToManyField(User, blank=True, related_name='subscribers')  # Для задания 6.5
 
     def __str__(self):
         return self.name.title()
-
 
 
 class Post(models.Model):
@@ -50,25 +49,26 @@ class Post(models.Model):
     text = models.TextField()
     rating = models.SmallIntegerField(default=0)
 
-    def like (self):
-        self.rating +=1
+    def like(self):
+        self.rating += 1
         self.save()
         pass
 
-    def dislike (self):
-        self.rating -=1
+    def dislike(self):
+        self.rating -= 1
         self.save()
         pass
 
     def preview(self):
-        return self.text[0:123] + "..." #'{}...{}'.format(self.text[0:123], str(self.rating))
+        return self.text[0:123] + "..."  # '{}...{}'.format(self.text[0:123], str(self.rating))
 
     def get_absolute_url(self):
         return reverse('post_detail', args=[str(self.id)])
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs) # сначала вызываем метод родителя, чтобы объект сохранился
-        cache.delete(f'post-{self.pk}') # затем удаляем его из кэша, чтобы сбросить его
+        super().save(*args, **kwargs)  # сначала вызываем метод родителя, чтобы объект сохранился
+        cache.delete(f'post-{self.pk}')  # затем удаляем его из кэша, чтобы сбросить его
+
 
 class PostCategory(models.Model):
     postThrough = models.ForeignKey(Post, on_delete=models.CASCADE)
@@ -82,12 +82,12 @@ class Comment(models.Model):
     dateCreation = models.DateTimeField(auto_now_add=True)
     rating = models.SmallIntegerField(default=0)
 
-    def like (self):
-        self.rating +=1
+    def like(self):
+        self.rating += 1
         self.save()
         pass
 
-    def dislike (self):
-        self.rating -=1
+    def dislike(self):
+        self.rating -= 1
         self.save()
         pass
