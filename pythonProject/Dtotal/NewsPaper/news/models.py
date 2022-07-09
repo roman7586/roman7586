@@ -49,6 +49,9 @@ class Post(models.Model):
     text = models.TextField()
     rating = models.SmallIntegerField(default=0)
 
+    def getpostCategory(self):
+        return '\n'.join([p.name for p in self.postCategory.all()])
+
     def like(self):
         self.rating += 1
         self.save()
