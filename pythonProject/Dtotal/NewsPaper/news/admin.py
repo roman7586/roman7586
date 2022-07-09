@@ -4,7 +4,8 @@ from .models import Author, Category, Post, PostCategory, Comment
 # Register your models here.
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ("author", "categoryType", "dateCreation", "getpostCategory", "title", "text", "rating")
+    list_display = ("author", "categoryType", "dateCreation", "getpostCategory", "title", "rating") # оставляем необходимые данные
+    list_filter = ("author", "categoryType", "dateCreation") # добавляем примитивные фильтры в нашу админку
 
 admin.site.register(Author)
 admin.site.register(Category)

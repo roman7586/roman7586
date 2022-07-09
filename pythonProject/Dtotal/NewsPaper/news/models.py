@@ -50,7 +50,7 @@ class Post(models.Model):
     rating = models.SmallIntegerField(default=0)
 
     def getpostCategory(self):
-        return '\n'.join([p.name for p in self.postCategory.all()])
+        return '\n'.join([p.name for p in self.postCategory.all()]) #необходимо чтобы в админской панели джанго работало отображение колонок m2m
 
     def like(self):
         self.rating += 1
