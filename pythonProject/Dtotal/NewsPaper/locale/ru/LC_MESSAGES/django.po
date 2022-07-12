@@ -22,4 +22,16 @@ msgstr ""
 
 #: .\fpages\admin.py:11
 msgid "Advanced options"
-msgstr ""
+msgstr "Расширенные настройки"
+
+#: .\templates\flatpages\default.html:33
+msgid "Home"
+msgstr "Главная страница"
+
+#: .\templates\flatpages\default.html:38
+msgid "About"
+msgstr "О портале"
+
+#: .\templates\flatpages\default.html:41
+msgid "Contact"
+msgstr "Контакты"

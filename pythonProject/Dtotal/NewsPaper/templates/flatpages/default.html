@@ -1,5 +1,6 @@
 
 <!DOCTYPE html>
+{% load i18n %}<!-- Загружаем теги с переводами, без этой строки ничего не будет работать -->
 {% load static %} <!-- загрузка стилей из папки static-->
 <html lang="en">
     <head>
@@ -15,6 +16,21 @@
     </head>
     <body>
         <!-- Responsive navbar-->
+        <form action="{% url 'set_language' %}" method="POST"> {% csrf_token %} <!-- Не забываем по csrf_token для POST запросов -->
+            <input type="hidden" name="next" value="{{ redirect_to }}">
+
+            <select name="language" id="">
+            {% get_available_languages as LANGUAGES %} <!-- получаем языки -->
+            {% get_language_info_list for LANGUAGES as languages %} <!-- Помещаем их в список languages -->
+
+            {% for language in languages %} <!-- Итерируясь по списку, выводим их название на языке пользователя и код -->
+                <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                    {{ language.name_local }} - {{ language.code }}
+                </option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="set">
+        </form>
         {% load cache %}
             {% cache 300 header %}
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
@@ -29,15 +45,15 @@
                    <div class="collapse navbar-collapse" id="navbarResponsive">
                        <ul class="navbar-nav ml-auto">
                            <li class="nav-item active">
-                               <a class="nav-link" href="#">Home
+                               <a class="nav-link" href="#">{% trans "Home"%}
                                    <span class="sr-only">(current)</span>
                                </a>
                            </li>
                            <li class="nav-item">
-                               <a class="nav-link" href="/about/">About</a>
+                               <a class="nav-link" href="/about/">{% trans "About"%}</a>
                            </li>
                            <li class="nav-item">
-                               <a class="nav-link" href="/contacts/">Contact</a>
+                               <a class="nav-link" href="/contacts/">{% trans "Contact"%}</a>
                            </li>
                        </ul>
                    </div>
