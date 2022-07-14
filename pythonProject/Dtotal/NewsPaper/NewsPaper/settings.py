@@ -66,7 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
+    'news.middlewares.TimezoneMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware'
     
 ]
