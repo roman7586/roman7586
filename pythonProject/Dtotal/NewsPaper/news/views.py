@@ -56,10 +56,10 @@ class PostsList(ListView):
         current_time = timezone.now()
 
         # .  Translators: This message appears on the home page only
-        models = Post.objects.all()
+        posts = Post.objects.all()
 
         context = {
-            'models': models,
+            'posts': posts,
             'current_time': current_time,
             'timezones': pytz.common_timezones,  # добавляем в контекст все доступные часовые пояса
         }
