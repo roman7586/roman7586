@@ -31,7 +31,10 @@ class Post(models.Model):
     title = models.CharField(max_length=128)
     category = models.CharField(max_length=11, choices=TYPE, default='tanks')
     text = models.TextField()
-    content=models.FileField(upload_to=author_directory_path)
+    content = models.FileField(upload_to=author_directory_path)
+
+    def __str__(self):
+        return self.title()
 
     #postCategory = models.ManyToManyField(Category, through='PostCategory')
     #rating = models.SmallIntegerField(default=0)
