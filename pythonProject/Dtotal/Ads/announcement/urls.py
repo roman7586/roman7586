@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import PostsList, PostDetail
+from .views import PostsList, PostDetail, IndexView
 
 urlpatterns = [
    # path — означает путь.
@@ -10,5 +10,8 @@ urlpatterns = [
    # а Django ожидает функцию, нам надо представить этот класс в виде view.
    # Для этого вызываем метод as_view.
    path('', PostsList.as_view()),
-   path('<int:pk>', PostDetail.as_view(), name='post_detail')
+   path('<int:pk>', PostDetail.as_view(), name='post_detail'),
+
+
+   path('index/', IndexView.as_view())
 ]

@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'announcement',
     'django.contrib.sites',
     'django.contrib.flatpages',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 SITE_ID = 1
