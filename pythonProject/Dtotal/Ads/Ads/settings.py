@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'announcement',
     'django.contrib.sites',
     'django.contrib.flatpages',
+    'allauth',
     'allauth.account',
     'allauth.socialaccount',
 ]
@@ -76,6 +77,26 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Ads.wsgi.application'
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+LOGIN_URL = '/accounts/login/' # Авторизация через allauth
+LOGIN_REDIRECT_URL = '/news/indexx/' # перенаправление на страницу для авторизованного пользователя
+ACCOUNT_LOGOUT_REDIRECT_URL ="/accounts/login" #перенаправление на страницу авторизации после выхода их профиля
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
+ACCOUNT_FORMS = {'signup': 'announcement.forms.BasicSignupForm'}
 
 
 # Database
