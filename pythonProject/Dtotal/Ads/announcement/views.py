@@ -45,7 +45,7 @@ class PostDetail(DetailView):
     #queryset = Post.objects.all()
 
 class IndexView(LoginRequiredMixin, TemplateView):
-    template_name = 'account/index.html'
+    template_name = 'accounts/index.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

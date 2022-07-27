@@ -87,7 +87,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 LOGIN_URL = '/accounts/login/' # Авторизация через allauth
-LOGIN_REDIRECT_URL = '/news/indexx/' # перенаправление на страницу для авторизованного пользователя
+LOGIN_REDIRECT_URL = '/posts/index/' # перенаправление на страницу для авторизованного пользователя
 ACCOUNT_LOGOUT_REDIRECT_URL ="/accounts/login" #перенаправление на страницу авторизации после выхода их профиля
 
 ACCOUNT_EMAIL_REQUIRED = True
@@ -152,3 +152,13 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+EMAIL_HOST = 'smtp.yandex.ru'  # адрес сервера Яндекс-почты для всех один и тот же
+EMAIL_PORT = 465  # порт smtp сервера тоже одинаковый
+EMAIL_HOST_USER = 'hiromant86'  # ваше имя пользователя, например, если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
+EMAIL_HOST_PASSWORD = '2xcanonx2'  # пароль от почты
+EMAIL_USE_SSL = True  # Яндекс использует ssl, подробнее о том, что это, почитайте в дополнительных источниках, но включать его здесь обязательно
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER + '@yandex.ru' #можно указать полностью адрес 'hiromant86@yandex.ru' . Для 6.2
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True  #позволит избежать дополнительных действий и активирует аккаунт сразу, как только мы перейдем по ссылке
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2 #- количество дней, в течение которых будет доступна ссылка на подтверждение регистрации
