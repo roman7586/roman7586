@@ -19,10 +19,14 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    # для всех
     path('admin/', admin.site.urls),
     path('pages/', include('django.contrib.flatpages.urls')),
     path('posts/', include('announcement.urls')),
+    #для авторизованных
     path('accounts/', include('allauth.urls')),
+
+    #Для автора
 
 ]
 

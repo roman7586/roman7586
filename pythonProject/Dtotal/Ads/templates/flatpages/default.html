@@ -15,21 +15,47 @@
     </head>
     <body>
         <!-- Responsive navbar-->
-        {% load cache %}
-            {% cache 300 header %}
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-               <div class="container">
-                   <a class="navbar-brand" href="#">Django flatpages</a>
-                   <button class="navbar-toggler" type="button" data-toggle="collapse"
-                           data-target="#navbarResponsive"
-                           aria-controls="navbarResponsive" aria-expanded="false"
-                           aria-label="Toggle navigation">
-                       <span class="navbar-toggler-icon"></span>
-                   </button>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+           <div class="container">
+               <a class="navbar-brand" href="#">Доска обьявлений</a>
+               <button class="navbar-toggler" type="button" data-toggle="collapse"
+                       data-target="#navbarResponsive"
+                       aria-controls="navbarResponsive" aria-expanded="false"
+                       aria-label="Toggle navigation">
+                   <span class="navbar-toggler-icon"></span>
+               </button>
+               <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/">Вход для АДМИНИСТРАТОРА</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/board/post/create/">Создать обьявление</a>
+                        </li>
 
-               </div>
-            </nav>
-            {% endcache %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/accounts/profile/">Мои обьявления</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    {% if user.is_authenticated %}
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/accounts/logout/">Выйти</a>
+                        </li>
+                    </ul>
+                    <a class="nav-link" href="/accounts/profile/">Кабинет {{request.user.username}}</a>
+                    {% else %}
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/accounts/login/">Войти</a>
+                        </li>
+                    </ul>
+                    {% endif %}
+                </div>
+           </div>
+        </nav>
         <!-- Page content-->
         <div class="container">
            <div class="row">

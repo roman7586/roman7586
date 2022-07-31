@@ -11,12 +11,12 @@ from .models import Post
 
 def home_page(request):
     data = Post.objects.all()
-    return render(request, 'home_page.html', {'data': data})
+    return render(request, 'posts.html', {'data': data})
 
 class PostsList(ListView):
     model = Post
     ordering = 'dateCreation'
-    template_name = 'home_page.html'
+    template_name = 'posts.html'
     context_object_name = 'posts'
     paginate_by = 10
 

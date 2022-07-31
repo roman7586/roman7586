@@ -39,9 +39,9 @@ class Post(models.Model):
     #postCategory = models.ManyToManyField(Category, through='PostCategory')
     #rating = models.SmallIntegerField(default=0)
 
-class Comment(models.Model):
-    commentPost = models.ForeignKey(Post, on_delete=models.CASCADE)
-    commentUser = models.ForeignKey(User, on_delete=models.CASCADE)
+class Otvet(models.Model):
+    OtvetPost = models.ForeignKey(Post, on_delete=models.CASCADE)
+    OtvetUser = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
     dateCreation = models.DateTimeField(auto_now_add=True)
     rating = models.SmallIntegerField(default=0)

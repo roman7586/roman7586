@@ -13,6 +13,9 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+
+from dotenv import load_dotenv
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -43,6 +46,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'django_filters',
 ]
 
 SITE_ID = 1
@@ -127,7 +131,24 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+load_dotenv() #https://pythobyte.com/python-dotenv-module-90588/
+env_path = Path('.')/'.env'
+load_dotenv(dotenv_path=env_path)
 
+EMAIL_HOST = 'smtp.yandex.ru'  # адрес сервера Яндекс-почты для всех один и тот же
+EMAIL_PORT = 465  # порт smtp сервера тоже одинаковый
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # ваше имя пользователя, например, если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # пароль от почты
+EMAIL_USE_SSL = True  # Яндекс использует ssl, подробнее о том, что это, почитайте в дополнительных источниках, но включать его здесь обязательно
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER + '@yandex.ru' #можно указать полностью адрес 'hiromant86@yandex.ru' . Для 6.2
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True  #позволит избежать дополнительных действий и активирует аккаунт сразу, как только мы перейдем по ссылке
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2 #- количество дней, в течение которых будет доступна ссылка на подтверждение регистрации
+
+#CELERY_BROKER_URL = 'redis://default:T6awm2b9kCjXPDKe3mM4Qr9zKuU25Txq@redis-17198.c9.us-east-1-4.ec2.cloud.redislabs.com:17198'
+#CELERY_RESULT_BACKEND = 'redis://redis-17198.c9.us-east-1-4.ec2.cloud.redislabs.com:17198'
+#CELERY_ACCEPT_CONTENT = ['application/json']
+#CELERY_TASK_SERIALIZER = 'json'
+#CELERY_RESULT_SERIALIZER = 'json'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -154,11 +175,3 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-EMAIL_HOST = 'smtp.yandex.ru'  # адрес сервера Яндекс-почты для всех один и тот же
-EMAIL_PORT = 465  # порт smtp сервера тоже одинаковый
-EMAIL_HOST_USER = 'hiromant86'  # ваше имя пользователя, например, если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
-EMAIL_HOST_PASSWORD = '2xcanonx2'  # пароль от почты
-EMAIL_USE_SSL = True  # Яндекс использует ssl, подробнее о том, что это, почитайте в дополнительных источниках, но включать его здесь обязательно
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER + '@yandex.ru' #можно указать полностью адрес 'hiromant86@yandex.ru' . Для 6.2
-ACCOUNT_CONFIRM_EMAIL_ON_GET = True  #позволит избежать дополнительных действий и активирует аккаунт сразу, как только мы перейдем по ссылке
-ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2 #- количество дней, в течение которых будет доступна ссылка на подтверждение регистрации
