@@ -1,12 +1,14 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from django.views.generic import ListView, DetailView, TemplateView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, TemplateView, CreateView, DeleteView
 
-from .models import Post
+from .forms import PostForm
+from .models import Post, Otvet
 
 
 def home_page(request):
@@ -20,29 +22,40 @@ class PostsList(ListView):
     context_object_name = 'posts'
     paginate_by = 10
 
-    #def get_queryset(self):
-    #    # Получаем обычный запрос
-    #    queryset = super().get_queryset()
-    #    # Используем наш класс фильтрации.
-    #    # self.request.GET содержит объект QueryDict, который мы рассматривали в этом юните ранее.
-    #    # Сохраняем нашу фильтрацию в объекте класса, чтобы потом добавить в контекст и использовать в шаблоне.
-    #    self.filterset = PostFilter(self.request.GET, queryset)
-    #    # Возвращаем из функции отфильтрованный список товаров
-    #    return self.filterset.qs
-    #
-    #def get_context_data(self, **kwargs):
-    #    context = super().get_context_data(**kwargs)
-    #    # Добавляем в контекст объект фильтрации.
-    #    context['filterset'] = self.filterset
-    #    return context
-
 class PostDetail(DetailView):
     model = Post
     template_name = 'more.html'
-    # Название объекта, в котором будет выбранный пользователем продукт
     context_object_name = 'post'
-#абзац по кэшу
-    #queryset = Post.objects.all()
+
+class PostCreate(PermissionRequiredMixin, CreateView):
+    form_class = PostForm
+    model = Post
+    template_name = 'edit.html'
+    permission_required = ('Ads.add_post',)
+
+class PostDelete(DeleteView):
+    model = Post
+    template_name = 'post_delete.html'
+    success_url = reverse_lazy('')
+
+
+
+
+
+class MyResponses(ListView):
+    model = Post
+    template_name = 'otvety.html'
+    context_object_name = 'board'
+
+    def get_queryset(self):
+        return super().get_queryset()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filterset'] = Otvet.objects.filter(response_to__user=self.request.user)
+        return context
+
+
 
 class IndexView(LoginRequiredMixin, TemplateView):
     template_name = 'accounts/index.html'

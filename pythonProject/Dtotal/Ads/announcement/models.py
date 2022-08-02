@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
+from django.urls import reverse
+
 
 def author_directory_path(instance, filename):
     return 'author_{0}/{1}'.format(instance.author.id, filename)
@@ -33,11 +35,15 @@ class Post(models.Model):
     text = models.TextField()
     content = models.FileField(upload_to=author_directory_path)
 
+    def preview(self):
+        return self.text[0:123] + "..."
+
+    def get_absolute_url(self):
+        return reverse('post_detail', args=[str(self.id)])
+
     def __str__(self):
         return self.title()
 
-    #postCategory = models.ManyToManyField(Category, through='PostCategory')
-    #rating = models.SmallIntegerField(default=0)
 
 class Otvet(models.Model):
     OtvetPost = models.ForeignKey(Post, on_delete=models.CASCADE)
