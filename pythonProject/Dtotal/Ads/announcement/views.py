@@ -27,7 +27,8 @@ class PostDetail(DetailView):
     template_name = 'more.html'
     context_object_name = 'post'
 
-class PostCreate(PermissionRequiredMixin, CreateView):
+
+class PostCreate(LoginRequiredMixin, CreateView): #PermissionRequiredMixin
     form_class = PostForm
     model = Post
     template_name = 'edit.html'
