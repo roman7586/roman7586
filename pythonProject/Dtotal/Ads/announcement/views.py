@@ -33,7 +33,13 @@ class PostCreate(LoginRequiredMixin, CreateView): #PermissionRequiredMixin
     model = Post
     template_name = 'edit.html'
     permission_required = ('Ads.add_post',)
-
+    @login_required
+    def upgrade_me(request):
+        user = request.user
+        authors_group = Group.objects.get(name='authors')
+        if not request.user.groups.filter(name='authors').exists():
+            authors_group.user_set.add(user)
+        return redirect('/')
 class PostDelete(DeleteView):
     model = Post
     template_name = 'post_delete.html'

@@ -12,7 +12,6 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = [
-            'author',
             'category',
             'title',
             'text',
@@ -36,6 +35,6 @@ class BasicSignupForm(SignupForm):
 
     def save(self, request):
         user = super(BasicSignupForm, self).save(request)
-        author_group = Group.objects.get(name='author')
-        author_group.user_set.add(user)
+        common_group = Group.objects.get(name='common')
+        common_group.user_set.add(user)
         return user

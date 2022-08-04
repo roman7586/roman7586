@@ -38,11 +38,11 @@ class Post(models.Model):
     def preview(self):
         return self.text[0:123] + "..."
 
-    def get_absolute_url(self):
-        return reverse('post_detail', args=[str(self.id)])
+    #def get_absolute_url(self):
+    #    return reverse('post_detail', args=[str(self.id)])
 
-    def __str__(self):
-        return self.title()
+    #def __str__(self):
+    #    return self.title()
 
 
 class Otvet(models.Model):
