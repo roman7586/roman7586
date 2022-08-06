@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render
 
 # Create your views here.
@@ -28,6 +29,16 @@ class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'post_edit.html'
     permission_required = ('advert.add_post',)
+
+def home_page(request):
+    if request.method == 'POST' and request.FILES:
+        file = request.FILES['myfile1']
+        fs = FileSystemStorage()
+        filename = fs.save(file.name, file)
+        file_url = fs.url(filename)
+        return render(request, 'post_edit.html', {'file_url': file_url })
+    return render(request, 'post_edit.html')
+
 
 class PostUpdate(LoginRequiredMixin, UpdateView):
     form_class = PostForm
