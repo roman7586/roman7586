@@ -40,8 +40,13 @@ posts
                 Все остальные символы превратятся в многоточие. -->
                <td>{{ post.text|truncatechars:20 }}</td>
                <td>{{ post.dateCreation }}</td>
-               <td>{{ post.User }}</td>
-               <td><a href={{ post.content }} download>Контент обьявления</a></td>
+               <td>{{ post.User.id }}</td>
+               {% if post.content%}
+                   <td><a href={{ post.content }}> Контент обьявления</a></td>
+               {% else %}
+                   <td>отсутствует</td>
+               {% endif %}
+<!--               <td><a href={{ post.content }} download>Контент обьявления</a></td>-->
                <td><button> <a href=/posts/{{ post.id }}> Подробнее</a></button></td>
            </tr>
            {% endfor %}
