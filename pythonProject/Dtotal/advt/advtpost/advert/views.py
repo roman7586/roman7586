@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
@@ -30,6 +31,11 @@ class PostCreate(LoginRequiredMixin, CreateView):
     template_name = 'post_edit.html'
     permission_required = ('advert.add_post',)
 
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 def home_page(request):
     if request.method == 'POST' and request.FILES:
         file = request.FILES['myfile1']
@@ -45,6 +51,12 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
     model = Post
     template_name = 'post_edit.html'
     permission_required = ('advert.change_post', )
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 class PostDelete(LoginRequiredMixin, DeleteView):
     model = Post
