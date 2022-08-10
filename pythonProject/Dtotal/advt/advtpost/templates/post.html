@@ -44,8 +44,8 @@ post
                    <td>отсутствует</td>
                {% endif %}
                {% if post.user == request.user %}
-                   <td><button onclick=location.href="/board/post/{{n.id}}/delete/">Delete</button></td>
-                   <td><button onclick=location.href="/board/post/{{n.id}}/edit/">Edit</button></td>
+                   <td><button onclick=location.href="/posts/{{post.id}}/delete/">Delete</button></td>
+                   <td><button onclick=location.href="/posts/{{post.id}}/update/">Edit</button></td>
                {% else %}
                    <td><button> <a href="upgrade/">Откликнуться</a> </button></td>
                {% endif %}
