@@ -1,6 +1,6 @@
 <!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
 {% extends 'flatpages/default.html' %}
-
+{% load static %}
 <!-- Название у нас будет Post -->
 {% block title %}
 post
@@ -16,8 +16,12 @@ post
                <td>Описание</td>
                <td>Дата написания</td>
                <td>Автор</td>
-               <td>Подписка на категорию</td>
-
+               <td>Контент</td>
+               {% if post.user == request.user %}
+                   <td>Операции</td>
+               {% else %}
+                   <td>Подписка</td>
+               {% endif %}
            </tr>
 
            <!-- Для каждого товара будете генерироваться новая строчка,
@@ -33,9 +37,18 @@ post
                <td>{{ post.title}}</td>
                <td>{{ post.text}}</td>
                <td>{{ post.dateCreation|date:'d M Y' }}</td>
-               <td>{{ post.User}}</td>
-               <td><button> <a href="upgrade/">Откликнуться</a> </button></td>
-
+               <td>{{ post.user}}</td>
+               {% if post.content%}
+                   <td><a href={{ post.content }}> Контент обьявления</a></td>
+               {% else %}
+                   <td>отсутствует</td>
+               {% endif %}
+               {% if post.user == request.user %}
+                   <td><button onclick=location.href="/board/post/{{n.id}}/delete/">Delete</button></td>
+                   <td><button onclick=location.href="/board/post/{{n.id}}/edit/">Edit</button></td>
+               {% else %}
+                   <td><button> <a href="upgrade/">Откликнуться</a> </button></td>
+               {% endif %}
            </tr>
 
        </table>

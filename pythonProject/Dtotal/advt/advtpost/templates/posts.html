@@ -18,7 +18,6 @@ posts
                <td>Описание</td>
                <td>Дата написания</td>
                <td>Автор</td>
-               <td>Контент</td>
                <td>Подробности</td>
 
            </tr>
@@ -41,11 +40,6 @@ posts
                <td>{{ post.text|truncatechars:20 }}</td>
                <td>{{ post.dateCreation }}</td>
                <td>{{ post.user.username }}</td>
-               {% if post.content%}
-                   <td><a href={{ post.content }}> Контент обьявления</a></td>
-               {% else %}
-                   <td>отсутствует</td>
-               {% endif %}
                <td><button> <a href=/posts/{{ post.id }}> Подробнее</a></button></td>
            </tr>
            {% endfor %}
