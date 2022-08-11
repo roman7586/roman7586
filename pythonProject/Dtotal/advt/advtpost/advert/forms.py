@@ -37,3 +37,8 @@ class BasicSignupForm(SignupForm):
         author_group = Group.objects.get(name='author')
         author_group.user_set.add(user)
         return user
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Otvet
+        fields = ['Otvet_user', 'text', 'Otvet_to']

@@ -62,3 +62,7 @@ class PostDelete(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('')
+
+class OtklickToPost(LoginRequiredMixin, CreateView):
+    model = Otvet
+    form_class = OtklickForm
