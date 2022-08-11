@@ -4,11 +4,11 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
-from .forms import PostForm
-from .models import Post
+from .forms import PostForm, OtclickForm
+from .models import Post, Otvet
 
 
 class PostsList(ListView):
@@ -63,6 +63,23 @@ class PostDelete(LoginRequiredMixin, DeleteView):
     template_name = 'post_delete.html'
     success_url = reverse_lazy('')
 
-class OtklickToPost(LoginRequiredMixin, CreateView):
+class OtclickToPost(LoginRequiredMixin, CreateView):
     model = Otvet
-    form_class = OtklickForm
+    #form_class = OtclickForm
+    fields = ['text',]
+    template_name = 'otclick.html'
+    success_url = "posts/{}"
+    context_object_name = 'otclick'
+
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.Otvet_user = self.request.user
+        self.object.Otvet_to_id = self.kwargs.get('pk')
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self, **kwargs):
+        return reverse('post_detail', kwargs={'pk': self.kwargs.get('pk')}) #

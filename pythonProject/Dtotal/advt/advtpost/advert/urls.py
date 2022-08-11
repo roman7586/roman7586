@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 
-from .views import PostsList, PostDetail, PostCreate, PostUpdate, PostDelete, home_page
+from .views import PostsList, PostDetail, PostCreate, PostUpdate, PostDelete, home_page, OtclickToPost
 
 urlpatterns = [
     # path — означает путь.
@@ -17,7 +17,7 @@ urlpatterns = [
     path('<int:pk>/update/', PostUpdate.as_view(), name='post_update'),
     path('<int:pk>/delete/', PostDelete.as_view(), name='post_delete'),
 
-    path('otclick/', OtklickToPost.as_view(), name='otclick'),
+    path('otclick/', OtclickToPost.as_view(), name='otclick'),
     path('', home_page)
 
 
