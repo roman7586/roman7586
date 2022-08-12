@@ -17,7 +17,7 @@ urlpatterns = [
     path('<int:pk>/update/', PostUpdate.as_view(), name='post_update'),
     path('<int:pk>/delete/', PostDelete.as_view(), name='post_delete'),
 
-    path('otclick/', OtclickToPost.as_view(), name='otclick'),
+    path('<int:pk>/otclick/', OtclickToPost.as_view(), name='otclick'),
     path('', home_page)
 
 
