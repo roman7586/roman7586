@@ -18,6 +18,20 @@ class PostsList(ListView):
     context_object_name = 'posts'
     paginate_by = 10
 
+class MyPosts(ListView):
+    model = Post
+    ordering = 'dateCreation'
+    template_name = 'myposts.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        return super().get_queryset()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filterset'] = Post.objects.filter(user=self.request.user)
+        return context
+
 class PostDetail(DetailView):
     model = Post
     template_name = 'post.html'

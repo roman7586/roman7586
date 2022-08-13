@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 
-from .views import PostsList, PostDetail, PostCreate, PostUpdate, PostDelete, home_page, OtclickToPost
+from .views import PostsList, PostDetail, PostCreate, PostUpdate, PostDelete, home_page, OtclickToPost, MyPosts
 
 urlpatterns = [
     # path — означает путь.
@@ -12,10 +12,11 @@ urlpatterns = [
     # а Django ожидает функцию, нам надо представить этот класс в виде view.
     # Для этого вызываем метод as_view.
     path('', PostsList.as_view()),
-    path('<int:pk>', PostDetail.as_view(), name='post_detail'), # добавим кэширование на детали товара. Раз в 10 минут (запись в сек) товар будет записываться в кэш для экономии ресурсов.
+    path('<int:pk>', PostDetail.as_view(), name='post_detail'),
     path('create/', PostCreate.as_view(), name='post_create'),
     path('<int:pk>/update/', PostUpdate.as_view(), name='post_update'),
     path('<int:pk>/delete/', PostDelete.as_view(), name='post_delete'),
+    path('myposts/', MyPosts.as_view()),
 
     path('<int:pk>/otclick/', OtclickToPost.as_view(), name='otclick'),
     path('', home_page)
