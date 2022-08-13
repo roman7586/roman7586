@@ -1,6 +1,9 @@
 {% extends "flatpages/default.html" %}
 
+
 {% block content %}
+<h1>Отклик на обьявление</h1>
+<hr>
 <form action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}

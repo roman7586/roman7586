@@ -3,7 +3,7 @@
 {% load static %}
 <!-- Название у нас будет Post -->
 {% block title %}
-post
+posts
 {% endblock title %}
 
 <!-- В контенте на странице мы выводим сам товар, идентификатор которого был передан в url -->
@@ -47,7 +47,7 @@ post
                    <td><button onclick=location.href="/posts/{{post.id}}/delete/">Delete</button></td>
                    <td><button onclick=location.href="/posts/{{post.id}}/update/">Edit</button></td>
                {% else %}
-                   <td><button> <a href="/posts/{{post.id}}/otclick/">Откликнуться</a> </button></td>
+                   <td><button> <a onclick=location.href="/posts/{{post.id}}/otclick/">Откликнуться</a> </button></td>
                {% endif %}
            </tr>
 

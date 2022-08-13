@@ -9,7 +9,7 @@ posts
 {% endblock title %}
 
 {% block content %}
-   <h1>Все обьявления</h1>
+   <h1>Мои созданные обьявления</h1>
    <hr>
 {% if posts %}
     <table>
@@ -35,7 +35,7 @@ posts
                      Все остальные символы превратятся в многоточие. -->
                     <td>{{ post.text|truncatechars:20 }}</td>
                     <td>{{ post.dateCreation }}</td>
-                    <td><button> <a href=/posts/{{ post.id }}> Подробнее</a></button></td>
+                    <td><button onclick=location.href="/posts/{{post.id}}"> Подробнее</a></button></td>
                     <td><button onclick=location.href="/posts/{{post.id}}/delete/">Delete</button></td>
                     <td><button onclick=location.href="/posts/{{post.id}}/update/">Edit</button></td>
                 </tr>
