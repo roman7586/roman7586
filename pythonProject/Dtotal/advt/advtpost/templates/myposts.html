@@ -21,6 +21,7 @@ posts
             <td>Подробности</td>
             <td>Операции</td>
         </tr>
+
         {% for post in posts %}
             {% if post.user == request.user %}
                 <tr>
@@ -36,8 +37,8 @@ posts
                     <td>{{ post.text|truncatechars:20 }}</td>
                     <td>{{ post.dateCreation }}</td>
                     <td><button onclick=location.href="/posts/{{post.id}}"> Подробнее</a></button></td>
-                    <td><button onclick=location.href="/posts/{{post.id}}/delete/">Delete</button></td>
-                    <td><button onclick=location.href="/posts/{{post.id}}/update/">Edit</button></td>
+                    <td><button onclick=location.href="/posts/{{post.id}}/delete/">Удалить</button></td>
+                    <td><button onclick=location.href="/posts/{{post.id}}/update/">Изменить</button></td>
                 </tr>
             {% endif %}
         {% endfor %}
@@ -46,5 +47,25 @@ posts
 {% else %}
     <h2>Вы ещё не создавали обьявления!</h2>
 {% endif %}
+
+   {% if page_obj.has_previous %}
+       <a href="?page=1">1</a>
+       {% if page_obj.previous_page_number != 1 %}
+           ...
+           <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+       {% endif %}
+   {% endif %}
+
+   {# Информация о текущей странице #}
+   {{ page_obj.number }}
+
+   {# Информация о следующих страницах #}
+   {% if page_obj.has_next %}
+       <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
 
 {% endblock content %}

@@ -23,6 +23,7 @@ class MyPosts(ListView):
     ordering = 'dateCreation'
     template_name = 'myposts.html'
     context_object_name = 'posts'
+    paginate_by = 10
 
     def get_queryset(self):
         return super().get_queryset()
@@ -76,6 +77,23 @@ class PostDelete(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('')
+
+
+class OtckliksMyPost(LoginRequiredMixin, ListView): #Список откликов
+    model = Otvet
+    ordering = 'dateCreation'
+    template_name = 'otklickto.html' # не создана страница
+    context_object_name = 'otvets'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return super().get_queryset()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['otvets'] = Otvet.objects.filter(Otvet_to__user=self.request.user)
+        return context
+
 
 class OtclickToPost(LoginRequiredMixin, CreateView):
     model = Otvet
