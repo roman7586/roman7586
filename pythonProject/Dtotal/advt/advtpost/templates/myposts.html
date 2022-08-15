@@ -18,27 +18,19 @@ posts
             <td>Заголовок</td>
             <td>Описание</td>
             <td>Дата написания</td>
-            <td>Подробности</td>
             <td>Операции</td>
         </tr>
 
         {% for post in posts %}
             {% if post.user == request.user %}
                 <tr>
-                    <!-- Не забываем, что переменные в шаблоне ничем не отличаются
-                     от переменных в Python. Здесь также можно получать доступ к
-                     полям объекта модели. Например, здесь мы выводим имя,
-                     в следующем столбце описание, и т.д.  -->
                     <td>{{ post.category }}</td>
                     <td>{{ post.title}}</td>
-                    <!-- Добавим специальный фильтр truncatechars,
-                     чтобы ограничить количество символов до 20.
-                     Все остальные символы превратятся в многоточие. -->
                     <td>{{ post.text|truncatechars:20 }}</td>
                     <td>{{ post.dateCreation }}</td>
-                    <td><button onclick=location.href="/posts/{{post.id}}"> Подробнее</a></button></td>
-                    <td><button onclick=location.href="/posts/{{post.id}}/delete/">Удалить</button></td>
-                    <td><button onclick=location.href="/posts/{{post.id}}/update/">Изменить</button></td>
+                    <td><button onclick=location.href="/posts/{{post.id}}"> Подробнее</button> <button onclick=location.href="/posts/{{post.id}}/delete/">Удалить</button> <button onclick=location.href="/posts/{{post.id}}/update/">Изменить</button></td>
+<!--                    <td></td>-->
+<!--                    <td></td>-->
                 </tr>
             {% endif %}
         {% endfor %}
@@ -51,7 +43,6 @@ posts
    {% if page_obj.has_previous %}
        <a href="?page=1">1</a>
        {% if page_obj.previous_page_number != 1 %}
-           ...
            <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
        {% endif %}
    {% endif %}
@@ -63,7 +54,6 @@ posts
    {% if page_obj.has_next %}
        <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
        {% if paginator.num_pages != page_obj.next_page_number %}
-           ...
            <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
        {% endif %}
    {% endif %}

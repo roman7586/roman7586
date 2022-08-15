@@ -1,12 +1,10 @@
-<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
 {% extends 'flatpages/default.html' %}
 {% load static %}
-<!-- Название у нас будет Post -->
+
 {% block title %}
 posts
 {% endblock title %}
 
-<!-- В контенте на странице мы выводим сам товар, идентификатор которого был передан в url -->
 {% block content %}
 <h1>Просмотр обьявления № {{ post.id  }}</h1>
 <table>
@@ -23,16 +21,7 @@ posts
                    <td>Подписка</td>
                {% endif %}
            </tr>
-
-           <!-- Для каждого товара будете генерироваться новая строчка,
-           т.е. новый HTML код, который указан в теле цикла.
-           При этом сам цикл работает точно так же, как и в Python.
-           post — переменная цикла, т.е. наш товар полученный из списка -->
            <tr>
-               <!-- Не забываем, что переменные в шаблоне ничем не отличаются
-                от переменных в Python. Здесь также можно получать доступ к
-                полям объекта модели. Например, здесь мы выводим имя,
-                в следующем столбце описание, и т.д.  -->
                <td>{{ post.category }}</td>
                <td>{{ post.title}}</td>
                <td>{{ post.text}}</td>
@@ -44,8 +33,7 @@ posts
                    <td>отсутствует</td>
                {% endif %}
                {% if post.user == request.user %}
-                   <td><button onclick=location.href="/posts/{{post.id}}/delete/">Delete</button></td>
-                   <td><button onclick=location.href="/posts/{{post.id}}/update/">Edit</button></td>
+                   <td><button onclick=location.href="/posts/{{post.id}}/delete/">Удалить</button> <button onclick=location.href="/posts/{{post.id}}/update/">Изменить</button></td>
                {% else %}
                    <td><button> <a onclick=location.href="/posts/{{post.id}}/otclick/">Откликнуться</a> </button></td>
                {% endif %}
