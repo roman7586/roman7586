@@ -7,18 +7,18 @@ posts
 
 {% block content %}
 <h1>Просмотр обьявления № {{ post.id  }}</h1>
-<table>
+<table border="1" style="text-align:center">
            <tr>
-               <td>Категория</td>
-               <td>Заголовок</td>
-               <td>Описание</td>
-               <td>Дата написания</td>
-               <td>Автор</td>
-               <td>Контент</td>
+               <td><b>Категория</b></td>
+               <td><b>Заголовок</b></td>
+               <td><b>Описание</b></td>
+               <td><b>Дата написания</b></td>
+               <td><b>Автор</b></td>
+               <td><b>Контент</b></td>
                {% if post.user == request.user %}
-                   <td>Операции</td>
+                   <td><b>Операции</b></td>
                {% else %}
-                   <td>Подписка</td>
+                   <td><b>Подписка</b></td>
                {% endif %}
            </tr>
            <tr>
@@ -35,7 +35,7 @@ posts
                {% if post.user == request.user %}
                    <td><button onclick=location.href="/posts/{{post.id}}/delete/">Удалить</button> <button onclick=location.href="/posts/{{post.id}}/update/">Изменить</button></td>
                {% else %}
-                   <td><button> <a onclick=location.href="/posts/{{post.id}}/otclick/">Откликнуться</a> </button></td>
+                   <td><button onclick=location.href="/posts/{{post.id}}/otclick/">Откликнуться</button></td>
                {% endif %}
            </tr>
 

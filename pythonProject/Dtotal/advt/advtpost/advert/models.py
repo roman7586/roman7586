@@ -41,4 +41,4 @@ class Otvet(models.Model):
     confirm = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.response_user}. {self.creation}: {self.text}'
+        return f'{self.Otvet_user}. {self.dateCreation}: {self.text}'

@@ -11,14 +11,14 @@ posts
    <h1>Все обьявления</h1>
    <hr>
    {% if posts %}
-       <table>
+       <table border="1" style="text-align:center">
            <tr>
-               <td>Категория</td>
-               <td>Заголовок</td>
-               <td>Описание</td>
-               <td>Дата написания</td>
-               <td>Автор</td>
-               <td>Операции</td>
+               <td><b>Категория</b></td>
+               <td><b>Заголовок</b></td>
+               <td><b>Описание</b></td>
+               <td><b>Дата написания</b></td>
+               <td><b>Автор</b></td>
+               <td><b>Операции</b></td>
 
            </tr>
            {% for post in posts %}

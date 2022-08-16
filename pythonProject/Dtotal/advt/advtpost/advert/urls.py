@@ -19,8 +19,8 @@ urlpatterns = [
     path('<int:pk>/delete/', PostDelete.as_view(), name='post_delete'),
     path('myposts/', MyPosts.as_view(), name='post_myposts'),
 
-    path('otklicks/', OtckliksMyPost.as_view(), name='otclicks'),
-    path('<int:pk>/otclick/', OtclickToPost.as_view(), name='otclick'),
+    path('otklicks/', OtckliksMyPost.as_view(), name='otclicks'), #список откликов
+    path('<int:pk>/otclick/', OtclickToPost.as_view(), name='otclick'), #написание отклика
     path('', home_page)
 
 

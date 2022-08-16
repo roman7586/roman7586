@@ -82,8 +82,8 @@ class PostDelete(LoginRequiredMixin, DeleteView):
 class OtckliksMyPost(LoginRequiredMixin, ListView): #Список откликов
     model = Otvet
     ordering = 'dateCreation'
-    template_name = 'otklickto.html' # не создана страница
-    context_object_name = 'otvets'
+    template_name = 'otklickto.html'
+    context_object_name = 'Otvets'
     paginate_by = 10
 
     def get_queryset(self):
@@ -91,11 +91,11 @@ class OtckliksMyPost(LoginRequiredMixin, ListView): #Список отклико
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['otvets'] = Otvet.objects.filter(Otvet_to__user=self.request.user)
+        context['Otvets'] = Otvet.objects.filter(Otvet_to__user=self.request.user)
         return context
 
 
-class OtclickToPost(LoginRequiredMixin, CreateView):
+class OtclickToPost(LoginRequiredMixin, CreateView): #Создание отклика
     model = Otvet
     #form_class = OtclickForm
     fields = ['text',]

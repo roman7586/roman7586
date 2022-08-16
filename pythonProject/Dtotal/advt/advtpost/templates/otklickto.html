@@ -1,35 +1,45 @@
 {% extends 'flatpages/default.html' %}
 
 {% block content %}
-    {% if post %}
-        <h1>{{ post.title|safe }}
-        <p>
-        <h3>{{ post.text|safe }}
-        <p>
-        <hr>
-        {% for r in responses %}
-        <h1>{{r.response_user}}
-        <p>
-        <h3>{{r.text|safe}}
-        <button onclick=location.href="/board/response/{{r.id}}/delete/">Delete</button>
-            {%if r.accepted == False %}
-                <button onclick=location.href="/board/response/{{post.id}}/accept/">Accept</button>
-            {% else %}
-                <button disabled onclick=location.href="/board/response/{{post.id}}/accept/">Accepted</button>
-            {% endif %}
-            <hr>
-        {% endfor %}
-    {% endif %}
 
+    {% if Otvets %}
+<!--        <h1>{{ post.title }}-->
+<!--        <p>-->
+<!--        <h3>{{ post.text }}-->
+<!--        <p>-->
+<!--        <hr>-->
+        <table border="1" style="text-align:center">
+            <tr>
+                <td><b>Заголовок обьявления по которому отклик</b></td>
+                <td><b>Кто откликнулся</b></td>
+                <td><b>Содержание отклика</b></td>
+                <td><b>Операции</b></td>
+            </tr>
+            {% for otvet in Otvets %}
+                <tr>
+                    <td>{{otvet.Otvet_to.title}}</td>
+                    <td>{{otvet.Otvet_user}}</td>
+                    <td>{{otvet.text}}</td>
+                    <td><button onclick=location.href="/board/response/{{r.id}}/delete/">Удалить</button>
+                        {%if otvet.confirm == False %}
+                            <button onclick=location.href="/board/response/{{post.id}}/accept/">Подтвердить</button>
+                        {% else %}
+                            <button disabled onclick=location.href="/board/response/{{post.id}}/accept/">Подтверждено</button>
+                        {% endif %}</td>
+                </tr>
+        </table>
+        {% endfor %}
+    {% else %}
+       <h2>Откликов пока нет!</h2>
+    {% endif %}
 
    {% if page_obj.has_previous %}
        <a href="?page=1">1</a>
        {% if page_obj.previous_page_number != 1 %}
-           ...
            <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
        {% endif %}
    {% endif %}
-
+<br>
    {# Информация о текущей странице #}
    {{ page_obj.number }}
 
@@ -37,7 +47,6 @@
    {% if page_obj.has_next %}
        <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
        {% if paginator.num_pages != page_obj.next_page_number %}
-           ...
            <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
        {% endif %}
    {% endif %}
