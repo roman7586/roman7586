@@ -7,18 +7,19 @@ from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
+from .filters import PostFilter
 from .forms import PostForm, OtclickForm
 from .models import Post, Otvet
 
 
-class PostsList(ListView):
+class PostsList(ListView): #Общий список обьявлений
     model = Post
     ordering = 'dateCreation'
     template_name = 'posts.html' # не создана страница
     context_object_name = 'posts'
     paginate_by = 10
 
-class MyPosts(ListView):
+class MyPosts(ListView): #Список толкьо своих созданных обьявлений
     model = Post
     ordering = 'dateCreation'
     template_name = 'myposts.html'
@@ -33,14 +34,14 @@ class MyPosts(ListView):
         context['filterset'] = Post.objects.filter(user=self.request.user)
         return context
 
-class PostDetail(DetailView):
+class PostDetail(DetailView): #Полная информация о выбранном обьявлении
     model = Post
     template_name = 'post.html'
     context_object_name = 'post'
 
     #queryset = Post.objects.all()
 
-class PostCreate(LoginRequiredMixin, CreateView):
+class PostCreate(LoginRequiredMixin, CreateView): #Создание обьявления
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
@@ -61,7 +62,7 @@ def home_page(request):
     return render(request, 'post_edit.html')
 
 
-class PostUpdate(LoginRequiredMixin, UpdateView):
+class PostUpdate(LoginRequiredMixin, UpdateView): #Изменение обьявления
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
@@ -73,7 +74,7 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
 
-class PostDelete(LoginRequiredMixin, DeleteView):
+class PostDelete(LoginRequiredMixin, DeleteView): #Удаление обьявления
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('')
@@ -86,8 +87,18 @@ class OtckliksMyPost(LoginRequiredMixin, ListView): #Список отклико
     context_object_name = 'Otvets'
     paginate_by = 10
 
+    # def get_queryset(self): # было, работало
+    #     return super().get_queryset()
     def get_queryset(self):
-        return super().get_queryset()
+        # Получаем обычный запрос
+        queryset = super().get_queryset()
+        # Используем наш класс фильтрации.
+        # self.request.GET содержит объект QueryDict, который мы рассматривали в этом юните ранее.
+        # Сохраняем нашу фильтрацию в объекте класса, чтобы потом добавить в контекст и использовать в шаблоне.
+        self.filterset = PostFilter(self.request.GET, queryset)
+        # Возвращаем из функции отфильтрованный список товаров
+        return self.filterset.qs
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
