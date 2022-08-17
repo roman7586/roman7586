@@ -11,11 +11,6 @@
 
     <hr>
     {% if Otvets %}
-<!--        <h1>{{ post.title }}-->
-<!--        <p>-->
-<!--        <h3>{{ post.text }}-->
-<!--        <p>-->
-<!--        <hr>-->
         <table border="1" style="text-align:center">
             <tr>
                 <td><b>Заголовок обьявления по которому отклик</b></td>
@@ -28,15 +23,15 @@
                     <td>{{otvet.Otvet_to.title}}</td>
                     <td>{{otvet.Otvet_user}}</td>
                     <td>{{otvet.text}}</td>
-                    <td><button onclick=location.href="/board/response/{{r.id}}/delete/">Удалить</button>
+                    <td><button onclick=location.href="{{otvet.id}}/delete/">Удалить</button>
                         {%if otvet.confirm == False %}
-                            <button onclick=location.href="/board/response/{{post.id}}/accept/">Подтвердить</button>
+                            <button onclick=location.href="/posts/otklicks/{{Otvet_to}}/accept/">Подтвердить</button>
                         {% else %}
-                            <button disabled onclick=location.href="/board/response/{{post.id}}/accept/">Подтверждено</button>
+                            <button disabled onclick=location.href="/posts/otklicks/{{posts.id}}/accept/">Подтверждено</button>
                         {% endif %}</td>
                 </tr>
+            {% endfor %}
         </table>
-        {% endfor %}
     {% else %}
        <h2>Откликов пока нет!</h2>
     {% endif %}

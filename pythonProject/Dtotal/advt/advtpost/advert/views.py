@@ -1,5 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.storage import FileSystemStorage
+from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
@@ -89,15 +91,10 @@ class OtckliksMyPost(LoginRequiredMixin, ListView): #Список отклико
 
     # def get_queryset(self): # было, работало
     #     return super().get_queryset()
-    def get_queryset(self):
-        # Получаем обычный запрос
-        queryset = super().get_queryset()
-        # Используем наш класс фильтрации.
-        # self.request.GET содержит объект QueryDict, который мы рассматривали в этом юните ранее.
-        # Сохраняем нашу фильтрацию в объекте класса, чтобы потом добавить в контекст и использовать в шаблоне.
-        self.filterset = PostFilter(self.request.GET, queryset)
-        # Возвращаем из функции отфильтрованный список товаров
-        return self.filterset.qs
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     self.filterset = PostFilter(self.request.GET, queryset)
+    #     return self.filterset.qs
 
 
     def get_context_data(self, **kwargs):
@@ -126,3 +123,27 @@ class OtclickToPost(LoginRequiredMixin, CreateView): #Создание откл�
 
     def get_success_url(self, **kwargs):
         return reverse('post_detail', kwargs={'pk': self.kwargs.get('pk')}) #
+
+class DeleteOtklick(LoginRequiredMixin, DeleteView):
+    model = Otvet
+    template_name = 'otklick_delete.html'
+    success_url = '/posts/otklicks/'
+
+@login_required
+def accept(request, pk):
+    Otvet.objects.filter(Otvet_to_id=pk).update(accepted=True)
+
+    instance = Otvet.objects.filter(Otvet_to_id=pk)
+    post_author = list(instance.values_list('Otvet_to__user__username', flat=True))
+    post_id = list(instance.values_list('Otvet_to__id', flat=True))
+    Otvet_user = list(instance.values_list("Otvet_user__username", flat=True))
+    email = list(instance.values_list("Otvet_user__email", flat=True))
+
+    send_mail(
+        subject=post_author[0],
+        message=f"Здравствуйте, {Otvet_user[0]}\n"
+                f"Отклик на обьявление {post_id[0]} от пользователя {post_author[0]} был просмотрен и утверждён!",
+        from_email='',
+        recipient_list=[email[0]])
+
+    return HttpResponseRedirect(f'/otklicks/')
