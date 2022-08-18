@@ -131,7 +131,7 @@ class DeleteOtklick(LoginRequiredMixin, DeleteView):
 
 @login_required
 def accept(request, pk):
-    Otvet.objects.filter(Otvet_to_id=pk).update(accepted=True)
+    Otvet.objects.filter(Otvet_to_id=pk).update(confirm=True)
 
     instance = Otvet.objects.filter(Otvet_to_id=pk)
     post_author = list(instance.values_list('Otvet_to__user__username', flat=True))
@@ -139,11 +139,11 @@ def accept(request, pk):
     Otvet_user = list(instance.values_list("Otvet_user__username", flat=True))
     email = list(instance.values_list("Otvet_user__email", flat=True))
 
-    send_mail(
-        subject=post_author[0],
-        message=f"Здравствуйте, {Otvet_user[0]}\n"
-                f"Отклик на обьявление {post_id[0]} от пользователя {post_author[0]} был просмотрен и утверждён!",
-        from_email='',
-        recipient_list=[email[0]])
+    #send_mail(
+    #    subject=post_author[0],
+    #    message=f"Здравствуйте, {Otvet_user[0]}\n"
+    #            f"Отклик на обьявление {post_id[0]} от пользователя {post_author[0]} был просмотрен и утверждён!",
+    #    from_email='',
+    #    recipient_list=[email[0]])
 
-    return HttpResponseRedirect(f'/otklicks/')
+    return HttpResponseRedirect(f'/posts/otklicks/')
