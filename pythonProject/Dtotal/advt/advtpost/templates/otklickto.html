@@ -25,9 +25,9 @@
                     <td>{{otvet.text}}</td>
                     <td><button onclick=location.href="{{otvet.id}}/delete/">Удалить</button>
                         {%if otvet.confirm == False %}
-                            <button onclick=location.href="/posts/otklicks/{{otvet.id}}/accept/">Подтвердить</button>
+                            <button onclick=location.href="/posts/otklicks/{{otvet.id}}/confirm/">Подтвердить</button>
                         {% else %}
-                            <button disabled onclick=location.href="/posts/otklicks/{{otvet.id}}/accept/">Подтверждено</button>
+                            <button disabled onclick=location.href="/posts/otklicks/{{otvet.id}}/confirm/">Подтверждено</button>
                         {% endif %}</td>
                 </tr>
             {% endfor %}

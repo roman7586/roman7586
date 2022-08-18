@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse_lazy, reverse
@@ -130,14 +130,16 @@ class DeleteOtklick(LoginRequiredMixin, DeleteView):
     success_url = '/posts/otklicks/'
 
 @login_required
-def accept(request, pk):
-    Otvet.objects.filter(Otvet_to_id=pk).update(confirm=True)
+def confirm(request, id):
+    otvet = Otvet.objects.get(pk=id)
+    otvet.confirm = True
+    otvet.save()
 
-    instance = Otvet.objects.filter(Otvet_to_id=pk)
-    post_author = list(instance.values_list('Otvet_to__user__username', flat=True))
-    post_id = list(instance.values_list('Otvet_to__id', flat=True))
-    Otvet_user = list(instance.values_list("Otvet_user__username", flat=True))
-    email = list(instance.values_list("Otvet_user__email", flat=True))
+    #instance = Otvet.objects.filter(Otvet_to_id=pk)
+    #post_author = list(instance.values_list('Otvet_to__user__username', flat=True))
+    #post_id = list(instance.values_list('Otvet_to__id', flat=True))
+    #Otvet_user = list(instance.values_list("Otvet_user__username", flat=True))
+    #email = list(instance.values_list("Otvet_user__email", flat=True))
 
     #send_mail(
     #    subject=post_author[0],
