@@ -26,7 +26,6 @@ urlpatterns = [
 
     path('', home_page)
 
-
     #path('sub/', CategoryList.as_view(), name='category'),
     #path('subscribe/<int:id>', add_subscribe, name='add_subscribe'),
 
