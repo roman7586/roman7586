@@ -16,6 +16,6 @@ def send_response_email(created, instance, *args, **kwargs):
         send_mail(
             subject=subject,
             message=f"Добрый день, {post_author}\n"
-                    f"Появился новый отклик на ваше обьявление от пользователя {otklick_user}",
+                    f"Появился новый отклик на ваше объявление от пользователя {otklick_user}",
             from_email='',
             recipient_list=[post_author_email])

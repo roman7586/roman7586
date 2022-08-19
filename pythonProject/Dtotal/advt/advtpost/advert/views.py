@@ -135,17 +135,22 @@ def confirm(request, id):
     otvet.confirm = True
     otvet.save()
 
+    post_author = otvet.Otvet_to.user.username
+    post_id = otvet.Otvet_to.id
+    otvet_user = otvet.Otvet_user.username
+    email = otvet.Otvet_user.email
+
     #instance = Otvet.objects.filter(Otvet_to_id=pk)
     #post_author = list(instance.values_list('Otvet_to__user__username', flat=True))
     #post_id = list(instance.values_list('Otvet_to__id', flat=True))
     #Otvet_user = list(instance.values_list("Otvet_user__username", flat=True))
     #email = list(instance.values_list("Otvet_user__email", flat=True))
 
-    #send_mail(
-    #    subject=post_author[0],
-    #    message=f"Здравствуйте, {Otvet_user[0]}\n"
-    #            f"Отклик на обьявление {post_id[0]} от пользователя {post_author[0]} был просмотрен и утверждён!",
-    #    from_email='',
-    #    recipient_list=[email[0]])
-
+    send_mail(
+        subject=post_author,
+        message=f"Добрый день, {otvet_user}\n"
+                f"Ваш отклик на обьявление №{post_id} от автора {post_author} был просмотрен и утверждён!",
+        from_email='',
+        recipient_list=[email])
+    print(post_author,post_id,otvet_user,email)
     return HttpResponseRedirect(f'/posts/otklicks/')
