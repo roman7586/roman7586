@@ -122,7 +122,7 @@ class OtclickToPost(LoginRequiredMixin, CreateView): #Создание откл�
         return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self, **kwargs):
-        return reverse('post_detail', kwargs={'pk': self.kwargs.get('pk')}) #
+        return reverse('post_detail', kwargs={'pk': self.kwargs.get('pk')})
 
 class DeleteOtklick(LoginRequiredMixin, DeleteView):
     model = Otvet
@@ -140,17 +140,11 @@ def confirm(request, id):
     otvet_user = otvet.Otvet_user.username
     email = otvet.Otvet_user.email
 
-    #instance = Otvet.objects.filter(Otvet_to_id=pk)
-    #post_author = list(instance.values_list('Otvet_to__user__username', flat=True))
-    #post_id = list(instance.values_list('Otvet_to__id', flat=True))
-    #Otvet_user = list(instance.values_list("Otvet_user__username", flat=True))
-    #email = list(instance.values_list("Otvet_user__email", flat=True))
-
     send_mail(
         subject=post_author,
         message=f"Добрый день, {otvet_user}\n"
                 f"Ваш отклик на обьявление №{post_id} от автора {post_author} был просмотрен и утверждён!",
         from_email='',
         recipient_list=[email])
-    print(post_author,post_id,otvet_user,email)
+    print(post_author,post_id,otvet_user,email) #Проверка в терминале что передаётся. УДАЛИТЬ!
     return HttpResponseRedirect(f'/posts/otklicks/')
