@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'advert',
+    #'advert.apps.AdvertConfig',
     'django.contrib.sites',
     'django.contrib.flatpages',
     'allauth',
