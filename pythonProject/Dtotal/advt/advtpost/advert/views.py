@@ -54,6 +54,7 @@ class PostCreate(LoginRequiredMixin, CreateView): #Создание обьявл
         self.object.user = self.request.user
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
+
 def home_page(request):
     if request.method == 'POST' and request.FILES:
         file = request.FILES['myfile1']
