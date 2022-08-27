@@ -28,7 +28,7 @@ posts
                <td>{{ post.dateCreation}}</td>
                <td>{{ post.user.username}}</td>
                {% if post.content%}
-                   <td><a href={{ post.content }}> Контент обьявления</a></td>
+                   <td><a href="/posts{% get_media_prefix %}{{post.content}}"> Контент обьявления</a></td>
                {% else %}
                    <td>отсутствует</td>
                {% endif %}
