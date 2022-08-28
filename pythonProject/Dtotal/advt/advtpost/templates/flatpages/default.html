@@ -8,9 +8,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Доска обьявлений </title>
-        <!-- Favicon-->
 
-        <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
     </head>
     <body>
@@ -33,12 +31,17 @@
                             <a class="nav-link" href="/posts/create/">Создать обьявление</a>
                         </li>
                         {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/posts/myposts/">Мои обьявления</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/posts/otklicks/">Отклики</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/posts/myposts/">Мои обьявления</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/posts/otklicks/">Отклики</a>
+                            </li>
+                            {% if user.is_authenticated and user.is_staff %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/posts/allsend/">Сообщение для всех</a>
+                                </li>
+                            {% endif %}
                         {% endif %}
                     </ul>
                     {% if user.is_authenticated %}

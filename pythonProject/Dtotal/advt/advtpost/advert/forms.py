@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 
-from .models import Post, Otvet
+from .models import Post, Otvet, NewsMail
 
 
 class PostForm(forms.ModelForm):
@@ -42,3 +42,8 @@ class OtclickForm(forms.ModelForm):
     class Meta:
         model = Otvet
         fields = ['text',]
+
+class NewsForm(forms.ModelForm):
+    class Meta:
+        model = NewsMail
+        fields = ['title', 'text']

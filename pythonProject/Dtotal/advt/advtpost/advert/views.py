@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
@@ -10,7 +11,7 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from .filters import PostFilter
-from .forms import PostForm, OtclickForm
+from .forms import PostForm, OtclickForm, NewsForm
 from .models import Post, Otvet
 
 
@@ -41,8 +42,6 @@ class PostDetail(DetailView): #Полная информация о выбран
     template_name = 'post.html'
     context_object_name = 'post'
 
-    #queryset = Post.objects.all()
-
 class PostCreate(LoginRequiredMixin, CreateView): #Создание обьявления
     form_class = PostForm
     model = Post
@@ -54,16 +53,6 @@ class PostCreate(LoginRequiredMixin, CreateView): #Создание обьявл
         self.object.user = self.request.user
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
-
-def home_page(request):
-    if request.method == 'POST' and request.FILES:
-        file = request.FILES['myfile1']
-        fs = FileSystemStorage()
-        filename = fs.save(file.name, file)
-        file_url = fs.url(filename)
-        return render(request, 'post_edit.html', {'file_url': file_url })
-    return render(request, 'post_edit.html')
-
 
 class PostUpdate(LoginRequiredMixin, UpdateView): #Изменение обьявления
     form_class = PostForm
@@ -125,12 +114,12 @@ class OtclickToPost(LoginRequiredMixin, CreateView): #Создание откл�
     def get_success_url(self, **kwargs):
         return reverse('post_detail', kwargs={'pk': self.kwargs.get('pk')})
 
-class DeleteOtklick(LoginRequiredMixin, DeleteView):
+class DeleteOtklick(LoginRequiredMixin, DeleteView): # Удаление отклика
     model = Otvet
     template_name = 'otklick_delete.html'
     success_url = '/posts/otklicks/'
 
-@login_required
+@login_required # Утверждение отклика
 def confirm(request, id):
     otvet = Otvet.objects.get(pk=id)
     otvet.confirm = True
@@ -147,5 +136,21 @@ def confirm(request, id):
                 f"Ваш отклик на обьявление №{post_id} от автора {post_author} был просмотрен и утверждён!",
         from_email='',
         recipient_list=[email])
-    print(post_author,post_id,otvet_user,email) #Проверка в терминале что передаётся. УДАЛИТЬ!
     return HttpResponseRedirect(f'/posts/otklicks/')
+
+
+def newssend(request): # Рассылка сообщения всем
+    form = NewsForm(request.POST)
+    if form.is_valid():
+        form.save()
+        subject = form.cleaned_data.get('title')
+        text = form.cleaned_data.get('text')
+        mail_list = [mail for mail in User.objects.all().values_list('email', flat=True)[1:]]
+        send_mail(
+            f'{subject}',
+            f'{text}',
+            '',
+            mail_list
+        )
+        return redirect('/')
+    return render(request, 'allsend.html', {'form': form})
