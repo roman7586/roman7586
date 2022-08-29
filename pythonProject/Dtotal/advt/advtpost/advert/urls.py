@@ -8,7 +8,7 @@ from .views import PostsList, PostDetail, PostCreate, PostUpdate, PostDelete,Otc
 urlpatterns = [
 
     path('', PostsList.as_view()), # список обьявлений
-    path('<int:pk>', PostDetail.as_view(), name='post_detail'), # подробная информация о обьявлении
+    path('<int:pk>', PostDetail.as_view(), name='post_detail'), # подробная информация обьявления
     path('create/', PostCreate.as_view(), name='post_create'), # Создание обьявления
     path('<int:pk>/update/', PostUpdate.as_view(), name='post_update'), # Изменение существующего обьявления
     path('<int:pk>/delete/', PostDelete.as_view(), name='post_delete'), # Удаление выбранного обьявления

@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'advert',
-    #'advert.apps.AdvertConfig',
     'django.contrib.sites',
     'django.contrib.flatpages',
     'allauth',
@@ -139,7 +138,7 @@ EMAIL_PORT = 465  # порт smtp сервера тоже одинаковый
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # ваше имя пользователя, например, если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # пароль от почты
 EMAIL_USE_SSL = True  # Яндекс использует ssl, подробнее о том, что это, почитайте в дополнительных источниках, но включать его здесь обязательно
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER + '@yandex.ru' #можно указать полностью адрес 'hiromant86@yandex.ru' . Для 6.2
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER + '@yandex.ru' #можно указать полностью адрес 'hiromant86@yandex.ru' .
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True  #позволит избежать дополнительных действий и активирует аккаунт сразу, как только мы перейдем по ссылке
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2 #- количество дней, в течение которых будет доступна ссылка на подтверждение регистрации
 

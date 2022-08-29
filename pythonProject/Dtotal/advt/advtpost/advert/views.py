@@ -1,7 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -11,18 +10,18 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from .filters import PostFilter
-from .forms import PostForm, OtclickForm, NewsForm
+from .forms import PostForm, NewsForm
 from .models import Post, Otvet
 
 
 class PostsList(ListView): #Общий список обьявлений
     model = Post
     ordering = 'dateCreation'
-    template_name = 'posts.html' # не создана страница
+    template_name = 'posts.html'
     context_object_name = 'posts'
     paginate_by = 10
 
-class MyPosts(ListView): #Список толкьо своих созданных обьявлений
+class MyPosts(ListView): #Список только своих созданных обьявлений
     model = Post
     ordering = 'dateCreation'
     template_name = 'myposts.html'
@@ -95,7 +94,6 @@ class OtckliksMyPost(LoginRequiredMixin, ListView): #Список отклико
 
 class OtclickToPost(LoginRequiredMixin, CreateView): #Создание отклика
     model = Otvet
-    #form_class = OtclickForm
     fields = ['text',]
     template_name = 'otclick.html'
     success_url = "posts/{}"

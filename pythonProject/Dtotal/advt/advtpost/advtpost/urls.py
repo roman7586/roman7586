@@ -19,7 +19,7 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', RedirectView.as_view(url='/posts/')), #редирект на первой странице
+    path('', RedirectView.as_view(url='/posts/')), # редирект на первой странице
     path('posts/', include('advert.urls')),
     path('accounts/', include('allauth.urls')),
 ]

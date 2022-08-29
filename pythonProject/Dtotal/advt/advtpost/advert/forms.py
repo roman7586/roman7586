@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from .models import Post, Otvet, NewsMail
 
 
-class PostForm(forms.ModelForm):
+class PostForm(forms.ModelForm): # Форма создания обьявления
     text = forms.CharField(min_length=20)
 
     class Meta:
@@ -38,12 +38,12 @@ class BasicSignupForm(SignupForm):
         author_group.user_set.add(user)
         return user
 
-class OtclickForm(forms.ModelForm):
+class OtclickForm(forms.ModelForm): # Форма отклика
     class Meta:
         model = Otvet
         fields = ['text',]
 
-class NewsForm(forms.ModelForm):
+class NewsForm(forms.ModelForm): # Форма для рассылки новостей
     class Meta:
         model = NewsMail
         fields = ['title', 'text']
