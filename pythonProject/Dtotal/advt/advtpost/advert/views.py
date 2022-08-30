@@ -78,17 +78,14 @@ class OtckliksMyPost(LoginRequiredMixin, ListView): #Список отклико
     context_object_name = 'Otvets'
     paginate_by = 10
 
-    # def get_queryset(self): # было, работало
-    #     return super().get_queryset()
-    # def get_queryset(self):
-    #     queryset = super().get_queryset()
-    #     self.filterset = PostFilter(self.request.GET, queryset)
-    #     return self.filterset.qs
-
+    def get_queryset(self):
+        queryset = Otvet.objects.filter(Otvet_to__user=self.request.user)
+        self.filterset = PostFilter(self.request.GET, queryset)
+        return self.filterset.qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['Otvets'] = Otvet.objects.filter(Otvet_to__user=self.request.user)
+        context['filterset']=self.filterset
         return context
 
 
