@@ -29,12 +29,7 @@ class MyPosts(ListView): #Список только своих созданны�
     paginate_by = 10
 
     def get_queryset(self):
-        return super().get_queryset()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filterset'] = Post.objects.filter(user=self.request.user)
-        return context
+        return Post.objects.filter(user=self.request.user)
 
 class PostDetail(DetailView): #Полная информация о выбранном обьявлении
     model = Post
@@ -53,6 +48,7 @@ class PostCreate(LoginRequiredMixin, CreateView): #Создание обьявл
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
 
+
 class PostUpdate(LoginRequiredMixin, UpdateView): #Изменение обьявления
     form_class = PostForm
     model = Post
@@ -64,6 +60,7 @@ class PostUpdate(LoginRequiredMixin, UpdateView): #Изменение обьяв
         self.object.user = self.request.user
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
+
 
 class PostDelete(LoginRequiredMixin, DeleteView): #Удаление обьявления
     model = Post

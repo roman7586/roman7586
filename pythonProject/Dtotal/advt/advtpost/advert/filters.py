@@ -17,3 +17,4 @@ class PostFilter(FilterSet):
             'text': ['icontains']
 
                   }
+
