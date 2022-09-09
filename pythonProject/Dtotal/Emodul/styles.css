@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+.logo-container{
+    color: white;
+    padding: 30px 120px;
+    background-color: #101010
+}
+
+.navigation{
+    float: right;
+    height: 100%;
+}
+
+.navigation a{
+    height: 100%;
+    display: table;
+    float: left;
+    padding: 20px 20px;
+    background-color: #101010;
+}
+
+.navigation a li{
+    vertical-align: middle;
+    display: table-cell;
+    font-size: 20px;
+    color: white;
+}
+
+.navigation a:hover{
+    background-color: gray;
+    color: #101010;
+}
+
+.titlemargin {
+  margin-left: 200px;
+}
+
+.hr-line {
+	margin: -30px auto 10px;
+	padding: 0;
+	height: 50px;
+	border: none;
+	border-bottom: 1px solid #1f1209;
+	box-shadow: 0 20px 20px -20px #333;
+	width: 95%;
+}
