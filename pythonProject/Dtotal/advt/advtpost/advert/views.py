@@ -131,7 +131,7 @@ def confirm(request, id):
     return HttpResponseRedirect(f'/posts/otklicks/')
 
 
-def newssend(request): # Рассылка сообщения всем
+def newssend(request): # Рассылка сообщения|новостей всем пользователям
     form = NewsForm(request.POST)
     if form.is_valid():
         form.save()
@@ -141,7 +141,6 @@ def newssend(request): # Рассылка сообщения всем
         send_mail(
             f'{subject}',
             f'{text}',
-            '',
             mail_list
         )
         return redirect('/')
