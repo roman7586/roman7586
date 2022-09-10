@@ -44,3 +44,19 @@
 	box-shadow: 0 20px 20px -20px #333;
 	width: 95%;
 }
+
+.content {
+font-family: verdana, trebuchet, sans-serif;
+}
+
+.scr {
+    margin-left: 200px;
+    width: 480px;
+    height: 320px;
+}
+
+.scr2 {
+    margin-left: 200px;
+    width: 380px;
+    height: 520px;
+}
