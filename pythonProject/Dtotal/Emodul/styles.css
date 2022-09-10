@@ -1,11 +1,5 @@
 @charset "UTF-8";
 
-.logo-container{
-    color: white;
-    padding: 30px 120px;
-    background-color: #101010
-}
-
 .navigation{
     float: right;
     height: 100%;
@@ -33,6 +27,12 @@
 
 .titlemargin {
   margin-left: 200px;
+}
+
+.logo-container{
+    color: white;
+    padding: 1px 120px;
+    background-color: #101010
 }
 
 .hr-line {
