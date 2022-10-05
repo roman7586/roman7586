@@ -1,0 +1,159 @@
+//задача 1
+//Написать, функцию, которая принимает в качестве аргумента объект и выводит в консоль все ключи и значения только собственных свойств. Данная функция не должна возвращать значение.
+const one = {
+    object1: "attr1"
+}
+
+const two = Object.create(one);
+    two.object2 = "attr2";
+
+function keys(object) {
+    for (let key in object) {
+        if (object.hasOwnProperty(key)) {
+            console.log(`${key}: ${object[key]}`);
+                                        }
+                            }
+                      }
+keys(two)
+
+//задача 2
+//Написать функцию, которая принимает в качестве аргументов строку и объект, а затем проверяет есть ли у переданного объекта свойство с данным именем. Функция должна возвращать true или false.
+
+const name = "name";
+const obj = {
+  Age : 12,
+  name : "Ivan",
+  city : "Moscow"
+
+};
+
+function find (str, object) {
+  if (str in object){
+    console.log("+");
+    return true;
+  } else {
+  console.log("-");
+   return false;
+     }
+}
+
+find(name,obj);
+
+
+//задача 3
+//Написать функцию, которая создает пустой объект, но без прототипа.
+const emptyObj = function () {
+    return Object.create(null);
+}
+console.log(emptyObj());
+
+
+//Задание 4.4
+//Реализовать следующее консольное приложение подобно примеру, который разбирался в видео. Реализуйте его на прототипах.
+//Определить иерархию электроприборов. Включить некоторые в розетку. Посчитать потребляемую мощность.
+//Таких приборов должно быть, как минимум, два (например, настольная лампа и компьютер). Выбрав прибор, подумайте, какими свойствами он обладает.
+//
+//План:
+//Определить родительскую функцию с методами, которые включают/выключают прибор из розетки.
+//Создать делегирующую связь [[Prototype]] для двух конкретных приборов.
+//У каждого из приборов должны быть собственные свойства и, желательно, методы, отличные от родительских методов.
+//Создать экземпляры каждого прибора.
+//Вывести в консоль и посмотреть результаты работы, гордиться собой. :)
+
+function Computer(name,power) {
+    this.name = name;
+    this.power = power;
+    this.getSwitch = function (turnOn) {
+        console.log(this.name + ' в состоянии ' + turnOn);
+        if (turnOn === 'on') {
+          sumpower = parseInt(sumpower)+parseInt(this.power);
+         }
+    }
+}
+
+function TableLamp(name, lumen, power){
+    this.name = name;
+    this.lumen = lumen;
+    this.power = power;
+    this.getLamp = function (){
+        console.log(`Настольная лампа с освещённостью в ${lumen} люменов`)}
+}
+TableLamp.prototype = new Computer();
+
+let sumpower=0;
+const lamp = new TableLamp('Лампа', 600, 40);
+const intel = new Computer('Компьютер Интел', 2100);
+const makbook = new Computer('Компьютер макбук', 1500);
+
+lamp.getSwitch('on')
+intel.getSwitch('on')
+makbook.getSwitch('on')
+lamp.getLamp()
+
+if (sumpower > 3000){
+  console.log(`Общая используемая мощность ${sumpower} Вт. Сеть перегружена!!!`);
+} else {
+  console.log(`Общая используемая мощность ${sumpower} Вт. Сеть стабильна!!!`);
+}
+
+
+//задание 4.5
+//Переписать консольное приложение из предыдущего юнита на классы.
+//Общие требования:
+//Имена классов, свойств и методов должны быть информативными;
+//Соблюдать best practices;
+//Использовать синтаксис ES6.
+
+class Computer {
+   constructor (name,power){
+       this.name = name;
+       this.power = power;
+       this.turnOn = false;
+       this.activePower = function () {
+       if (this.turnOn === true){
+           return this.power
+       } else {
+           return 0;
+              }
+       }
+       this.setSwitch = function (include) {
+           console.log(this.name + ' в состоянии ' + include);
+           if (include === 'on') {
+               this.turnOn = true;
+           } else {
+            this.turnOn = false;
+            }
+       }
+   }
+}
+
+class TableLamp extends Computer{
+    constructor(name, lumen, power){
+        super(name,power);
+        this.lumen = lumen;
+        this.getLamp = function (){
+            console.log(`Настольная лампа с освещённостью в ${lumen} люменов`)
+        }
+    }
+}
+
+const lamp = new TableLamp('Лампа', 600, 40);
+const intel = new Computer('Компьютер Интел', 2100);
+const makbook = new Computer('Компьютер макбук', 1500);
+
+lamp.setSwitch('on')
+intel.setSwitch('off')
+makbook.setSwitch('on')
+lamp.getLamp()
+
+let sumpower = 0;
+
+sumpower += lamp.activePower()
+sumpower += intel.activePower()
+sumpower += makbook.activePower()
+
+if (sumpower > 3000) {
+    console.log(`Общая используемая мощность ${sumpower} Вт. Сеть перегружена!!!`);
+} else {
+    console.log(`Общая используемая мощность ${sumpower} Вт. Сеть стабильна!!!`);
+}
