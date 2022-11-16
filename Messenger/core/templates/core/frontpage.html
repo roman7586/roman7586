@@ -1,0 +1,26 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title%} Добро пожаловать | {% endblock %}
+
+{%block content%}
+    {%if request.user.is_authenticated %}
+    <div class="rooms" style='top: 35%; font-size: 2rem; width: 18rem;'>
+        <div class="show-rooms">
+            <div class="show-rooms-bg" style='width: 18rem;'>
+                <a href="/create/" class="show-rooms-bg-front">Создать группу</a>
+            </div>
+        </div>
+        <div class="show-rooms">
+            <div class="show-rooms-bg" style='width: 18rem;' >
+                <a href="/rooms/" class="show-rooms-bg-front">Имеющиеся группы</a>
+            </div>
+        </div>
+        <div class="show-rooms">
+            <div class="show-rooms-bg" style='width: 18rem;' >
+                <a href="/users/" class="show-rooms-bg-front" style='align-text: center;'>Список пользователей</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{%endblock%}
